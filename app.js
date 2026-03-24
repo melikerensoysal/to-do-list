@@ -1,31 +1,26 @@
 const todoForm = document.getElementById('todo-form');
 const taskInput = document.getElementById('task-input');
-const taskList = document.getElementById('task-list'); 
-
-const init = () => {
-    todoForm.addEventListener('submit', handleAddTask);
-};
+const taskList = document.getElementById('task-list');
+const emptyState = document.getElementById('empty-state');
 
 const handleAddTask = (e) => {
     e.preventDefault(); 
+
+    const text = taskInput.value.trim();
     
-    const newTaskText = taskInput.value.trim(); 
-    
-    if (!newTaskText) {
-        return; 
+    if (text === '') {
+        return;
     }
 
-    createTaskElement(newTaskText);
-    
-    taskInput.value = ''; 
-};
-
-
-const createTaskElement = (text) => {
     const li = document.createElement('li');
+    li.className = 'task-item';
     li.textContent = text;
-    
-    taskList.appendChild(li);
+
+    taskList.appendChild(li);       
+
+    taskInput.value = '';
+
+    emptyState.style.display = 'none';
 };
 
-init();
+todoForm.addEventListener('submit', handleAddTask);
